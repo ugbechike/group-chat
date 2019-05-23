@@ -34,7 +34,7 @@ export default class Chatbox extends Component {
     }
   }
 
-  //WHEN COMPONENTMOUNTS, WE GET USERS
+  
   componentDidMount() {
     this.getUser();
   }
@@ -93,17 +93,11 @@ export default class Chatbox extends Component {
     this.send();
     e.target.reset();
   }
-
-  //get the chat message from the text box and update the state with the new value
   handleChange = (e) => {
     this.setState({ chat: e.target.value });
   }
 
   sendFile = () => {
-    console.log(";l;lll;lll;", this.state.name)
-    // const formData = new FormData();
-    // formData.append('file', this.state.file)
-
     var  mediaMessage = new CometChat.MediaMessage(
       this.state.userRecieverId,
       this.state.name,

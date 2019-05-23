@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { CometChat } from "@cometchat-pro/chat" 
 import { API_KEY } from "../../cometConfig";
 import "./index.css";
-// import Loading from "./loading.svg";
+import Loader from '../Loader/SmallLoader'
 
 export default class Login extends Component {
   constructor() {
@@ -30,8 +30,7 @@ export default class Login extends Component {
   };
 
   login = () => {
-    // Becareful of exposing your API key here.
-    // It can be dangerous if it gets into the hands of unauthorize users
+    // Do not expose your API key here.
     CometChat.login(this.state.userName, API_KEY).then(
       user => {
         console.log("Login Successful:", { user });
@@ -65,15 +64,11 @@ export default class Login extends Component {
               <button className="button modal-button">Login</button>
             </form>
             <div className="error">{this.state.error}</div>
-            {/* <div>
               {this.state.isLoading ? (
-                <p className="loading">
-                  <img alt="loading" src={Loading} />
-                </p>
+                <Loader />
               ) : (
                 ""
               )}
-            </div> */}
           </div>
           <div className="signup-text">
             <p>To Create account</p>
