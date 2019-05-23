@@ -145,10 +145,10 @@ export default class Chatbox extends Component {
     console.log("who get this props", this.props)
     return (
       <React.Fragment>
-        <div >
+        <div>
           <ol className="chat">
             {this.state.groupMessage.map(data => (
-              <div>
+              <div key={data.id}>
                 {/* Render loggedin user chat at the right side of the page */}
 
                 {this.state.user.uid === data.sender.uid ? (
@@ -157,7 +157,7 @@ export default class Chatbox extends Component {
                       <p>{data.sender.uid}</p>
                       {/* USING TENEARY OPERATOR TO CHECK THE MESSAGE TYPE */}
                       <div>
-                        {data.type == "text" ? 
+                        {data.type === "text" ? 
                         <div className="message"> 
                             { data.data.text}
 
@@ -169,12 +169,12 @@ export default class Chatbox extends Component {
                   </li>
                 ) : (
                   // render loggedin users chat at the left side of the chatwindow
-                  <li class="other" key={data.id}>
-                    <div class="msg">
+                  <li className="other" key={data.id}>
+                    <div className="msg">
                       <p>{data.sender.uid}</p>
 
                       <div>
-                        {data.type == "text" ? 
+                        {data.type === "text" ? 
                         <div className="message"> 
                             { data.data.text}
 

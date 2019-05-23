@@ -5,7 +5,7 @@ import Chatbox from "./Component/ChatBox/ChatBox"
 import ChatHome from "./Component/Dashboard/Dashboard";
 import Login from "./Component/Login/Login";
 import CreateGroup from "./Component/ChannelPlatform/ChannelList";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
 
 class App extends Component {
@@ -14,10 +14,10 @@ class App extends Component {
     
     CometChat.init(API_ID).then(
       hasInitialized => {
-        console.log("Initialization completed successfully", hasInitialized);
+        return hasInitialized;
       },
       error => {
-        console.log("Initialization failed with error:", error);
+       return error;
       }
     );
   }

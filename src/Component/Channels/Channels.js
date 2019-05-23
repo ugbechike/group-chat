@@ -62,7 +62,7 @@ export default class Groups extends Component {
                 <li
                   key={groups.guid}
                   onClick={this.selectGroup.bind(this, groups.guid, key) }
-                  className={`${currentClicked == key ? 'active' : ''}`}
+                  className={`${currentClicked === key ? 'active' : ''}`}
                 >
                   <div className="groupName"> # {groups.name}</div>
                 </li>
