@@ -23,12 +23,11 @@ export default class Groups extends Component {
     this.groupsRequest.fetchNext().then(
       groupList => {
         /* Fetches all the groups */
-        console.log("Groups list fetched successfully", groupList);
         this.setState({ groupList });
         /* you can display the list of groups available using groupList */
       },
       error => {
-        console.log("Groups list fetching failed with error", error);
+        return error
       }
     );
   }
@@ -39,10 +38,10 @@ export default class Groups extends Component {
     this.props.updateState(GUID);
     CometChat.joinGroup(GUID, this.groupType, this.password).then(
       group => {
-        console.log("Group joined successfully:", group);
+        return group
       },
       error => {
-        console.log("Group joining failed with exception:", error.code);
+        return error
       }
     );
 

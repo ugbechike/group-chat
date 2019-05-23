@@ -33,15 +33,15 @@ export default class Login extends Component {
     // Do not expose your API key here.
     CometChat.login(this.state.userName, API_KEY).then(
       user => {
-        console.log("Login Successful:", { user });
         this.setState({ redirect: true });
+        return user
       },
       error => {
-        console.log("Login failed with exception:", { error });
         this.setState({
           error: "Login failed, please enter a valid username",
           isLoading: false
         });
+        return error
       }
     );
   }

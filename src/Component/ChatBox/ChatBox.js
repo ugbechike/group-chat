@@ -49,7 +49,6 @@ export default class Chatbox extends Component {
 
     this.messagesRequest.fetchPrevious().then(
       messages => {
-        console.log("file inside message", messages)
         this.setState({ groupMessage: [] }, () => {
           return { groupMessage: [] };
         });
@@ -58,7 +57,7 @@ export default class Chatbox extends Component {
         });
       },
       error => {
-        console.log("Message fetching failed with error:", error);
+        return error
       }
     );
   }
@@ -73,12 +72,12 @@ export default class Chatbox extends Component {
 
     CometChat.sendMessage(this.textMessage).then(
       message => {
-        console.log("Message sent successfully:", message);
         this.setState({ chat: null });
         this.updateMessage();
+        return message
       },
       error => {
-        console.log("Message sending failed with error:", error);
+        return error
       }
     );
   }
@@ -108,11 +107,11 @@ export default class Chatbox extends Component {
 
     CometChat.sendMediaMessage(mediaMessage).then(
       messages => {
-        console.log("sent successfully", messages)
         this.updateMessage()
+        return messages
       },
       error => {
-        console.log("something went wrong", error)
+        return error
       }
     )
   }
@@ -120,7 +119,7 @@ export default class Chatbox extends Component {
   handleFile = (e) => {
     this.setState({
       name: e.target.files[0]
-    },()=> console.log('iiiiiiiii', this.state.name))
+    })
   }
 
   // Get the current logged in user
@@ -128,21 +127,18 @@ export default class Chatbox extends Component {
   getUser = () => {
     CometChat.getLoggedinUser().then(
       user => {
-        console.log("user details:", { user });
         this.setState({ user: user }, () => {
           return { user: user };
         });
         return { user };
       },
       error => {
-        console.log("error getting details:", { error });
-        return false;
+        return error;
       }
     );
   }
 
   render() {
-    console.log("who get this props", this.props)
     return (
       <React.Fragment>
         <div>
