@@ -21,8 +21,13 @@ h3 {
   }
   
   .login {
-    display: absolute;
-    width: 400px;
-    margin-left: 400px;
+    width: 40%;
+    margin-left: 479px;
     margin-top: 200px;
+    border: 1px solid green;
+    background: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

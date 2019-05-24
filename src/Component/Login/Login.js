@@ -50,6 +50,7 @@ export default class Login extends Component {
     return (
       <React.Fragment>
         <div className="login">
+        <div>
           <h4>Welcome to Your React Chat App</h4>
           {!this.state.redirect ? "" : this.renderRedirect()}
           <div>
@@ -70,18 +71,6 @@ export default class Login extends Component {
                 ""
               )}
           </div>
-          <div className="signup-text">
-            <p>To Create account</p>
-            <p>
-              Create one from the{" "}
-              <a href="https://app.CometChat.com/" target="blank">
-                CometChat Pro dashboard
-              </a>
-            </p>
-            <p>
-              feel free to use the test usernames: superhero1, superhero2,
-              superhero3 to login
-            </p>
           </div>
         </div>
       </React.Fragment>
