@@ -1,29 +1,44 @@
-### Group Chat App with Reactjs Demo
+**Build a chat application with file sharing functionality**
+
 Read the full tutorial here:
 
->> Build a chat app with Reactjs Using CometChat
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Build a chat application with file sharing functionality](LINK) 
+
+This tutorial shows how to build a group chat with file sharing functionality:
+
+![Complete view](src/screenshots/completePreview.png "complete app")
+
+[Login view](src/screenshots/login.Png "Login")
+
+**Technology**
+This demo uses:
+
+* CometChat Pro JS SDK
+* ReactJs
+* JavaScript
 
 
-### Running the demo
+**Running the demo**
+
 To run the demo follow these steps:
 
-Head to CometChat Pro and create an account
-From the dashboard, create a new app called "My Group Chat"
-One created, click Explore
-Go to the API Keys tab and click Create API Key
-Create an API key called "myApp" with Full Access
-Download the repository here or by running git clone https://github.com/ugbechike/group-chat and open it in Android Studio
-Update cometCnfig with your API KEY with your newly-created appID and apiKey
-Run the app and login with one of the test users: superhero1, superhero2, superhero3, superhero4 or superhero5
-Questions about running the demo? Open an issue. We're here to help ✌️
+* Download the repository [here](https://github.com/ugbechike/group-chat)
+* Run the command ```npm install or yarn```
+* Add your ```appId, GUID and apiKey```
 
-Useful links
-🏠 CometChat Homepage
-🚀 Create your free account
-📚 Documentation
-👾 GitHub
+```export default {```
+  ```appId: "", //Enter your App ID```
+ ```apiKey: "", //Enter your API KEY```
+  ```GUID: "", // Enter your group UID};```
+
+* Run the app with ```npm start or yarn start```
+
+**Useful links**
+
+*🏠 [CometChat Homepage](https://www.cometchat.com/)
+*👾 [CometChat JS SDK documentation](https://prodocs.cometchat.com/docs/js-quick-start)
+
 
 ##`npm install or yarn
 
@@ -46,10 +61,3 @@ This example shows how to build  group chat with reactjs:
 ### SCREENSHOT 
 
 please find the screenshots inside the screenshot folder
-
-Technology
-This demo uses:
-
-CometChat Pro
-Create React App
-?
