@@ -1,4 +1,4 @@
-**Build a chat application with file sharing functionality**
+##**Build a chat application with file sharing functionality**
 
 Read the full tutorial here:
 
@@ -9,9 +9,10 @@ This tutorial shows how to build a group chat with file sharing functionality:
 
 ![Complete view](src/screenshots/completePreview.png "complete app")
 
-[Login view](src/screenshots/login.Png "Login")
+[Login view](src/screenshots/login.png "Login")
 
-**Technology**
+##**Technology**
+
 This demo uses:
 
 * CometChat Pro JS SDK
@@ -19,7 +20,7 @@ This demo uses:
 * JavaScript
 
 
-**Running the demo**
+##**Running the demo**
 
 To run the demo follow these steps:
 
