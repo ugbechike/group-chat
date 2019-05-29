@@ -22,9 +22,7 @@ export default class Groups extends Component {
 
     this.groupsRequest.fetchNext().then(
       groupList => {
-        /* Fetches all the groups */
         this.setState({ groupList });
-        /* you can display the list of groups available using groupList */
       },
       error => {
         return error
@@ -47,7 +45,7 @@ export default class Groups extends Component {
 
     this.setState({
       currentClicked: key
-  })
+    })
   }
 
 
@@ -56,17 +54,17 @@ export default class Groups extends Component {
     return (
       <React.Fragment>
         <div >
-            <ul>
-              {this.state.groupList.map((groups, key) => (
-                <li
-                  key={groups.guid}
-                  onClick={this.selectGroup.bind(this, groups.guid, key) }
-                  className={`${currentClicked === key ? 'active' : ''}`}
-                >
-                  <div className="groupName"> # {groups.name}</div>
-                </li>
-              ))}
-            </ul>
+          <ul>
+            {this.state.groupList.map((groups, key) => (
+              <li
+                key={groups.guid}
+                onClick={this.selectGroup.bind(this, groups.guid, key)}
+                className={`${currentClicked === key ? 'active' : ''}`}
+              >
+                <div className="groupName"> # {groups.name}</div>
+              </li>
+            ))}
+          </ul>
           <div className="createGroup">
             <button className="createGroupBtn button">
               <Link className="a" to="/creategroup">

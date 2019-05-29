@@ -14,28 +14,29 @@ export default class Chatbox extends Component {
       name: null,
       file: ''
     };
-    
+
     this.fileType = CometChat.MESSAGE_TYPE.FILE
     this.userRecieverId = this.state.userRecieverId;
     this.messageType = CometChat.MESSAGE_TYPE.TEXT;
     this.receiverType = CometChat.RECEIVER_TYPE.GROUP;
     this.limit = 30;
+    this.LISTENER_KEY_MESSAGE = "msglistener";
   }
 
-  //WHEN COMPONENT UPDATES, WE CHECK IF THE IF THE USER RECEIVING THE MESSAGE IS ASSIGNED TO THE GROUP.
+
   componentDidUpdate() {
     this.updateUser = this.state.userRecieverId;
     if (this.updateUser !== this.props.state.group) {
       this.setState({ userRecieverId: this.props.state.group }, () => {
         this.updateMessage();
-        return {  userRecieverId: this.props.state.group };
+        return { userRecieverId: this.props.state.group };
       });
     } else {
     }
   }
 
-  
-  componentDidMount() {
+
+  async componentDidMount() {
     this.getUser();
   }
 
@@ -45,21 +46,48 @@ export default class Chatbox extends Component {
       .setLimit(this.limit)
       .build();
 
-    this.scrollToBottom();
 
     this.messagesRequest.fetchPrevious().then(
       messages => {
+        console.log("incomming...", messages)
         this.setState({ groupMessage: [] }, () => {
           return { groupMessage: [] };
         });
         this.setState({ groupMessage: messages }, () => {
           return { groupMessage: messages };
         });
+        this.getChat();
+        this.scrollToBottom();
       },
       error => {
         return error
       }
     );
+  }
+
+
+  getChat = async () => {
+    CometChat.addMessageListener(
+      this.LISTENER_KEY_MESSAGE,
+      await new CometChat.MessageListener({
+        onTextMessageReceived: textMessage => {
+          this.setState(
+            prevState => ({
+              groupMessage: [...prevState.groupMessage, textMessage]
+            }))
+        },
+        onMediaMessageReceived: mediaMessage => {
+
+          this.setState(
+            prevState => ({
+              groupMessage: [...prevState.groupMessage, mediaMessage]
+            }))
+          console.log("Media message received successfully", mediaMessage);
+          // Handle media message
+        },
+      })
+    )
+
   }
 
   send = () => {
@@ -82,7 +110,9 @@ export default class Chatbox extends Component {
     );
   }
 
-  scrollToBottom() {
+
+
+  scrollToBottom = () => {
     const chat = document.querySelectorAll(".chat")[0];
     chat.scrollTop = chat.scrollHeight;
   }
@@ -97,7 +127,7 @@ export default class Chatbox extends Component {
   }
 
   sendFile = () => {
-    var  mediaMessage = new CometChat.MediaMessage(
+    var mediaMessage = new CometChat.MediaMessage(
       this.state.userRecieverId,
       this.state.name,
       this.fileType,
@@ -145,46 +175,42 @@ export default class Chatbox extends Component {
           <ol className="chat">
             {this.state.groupMessage.map(data => (
               <div key={data.id}>
-                {/* Render loggedin user chat at the right side of the page */}
 
                 {this.state.user.uid === data.sender.uid ? (
                   <li className="self" key={data.id}>
                     <div className="msg">
                       <p>{data.sender.uid}</p>
-                      {/* USING TENEARY OPERATOR TO CHECK THE MESSAGE TYPE */}
                       <div>
-                        {data.type === "text" ? 
-                        <div className="message"> 
-                            { data.data.text}
+                        {data.type === "text" ?
+                          <div className="message">
+                            {data.data.text}
 
-                      </div>
-                       : 
-                       <img src={data.file} alt="file"/>}
+                          </div>
+                          :
+                          <img src={data.file} alt="file" />}
                       </div>
                     </div>
                   </li>
                 ) : (
-                  // render loggedin users chat at the left side of the chatwindow
-                  <li className="other" key={data.id}>
-                    <div className="msg">
-                      <p>{data.sender.uid}</p>
+                    <li className="other" key={data.id}>
+                      <div className="msg">
+                        <p>{data.sender.uid}</p>
 
-                      <div>
-                        {data.type === "text" ? 
-                        <div className="message"> 
-                            { data.data.text}
+                        <div>
+                          {data.type === "text" ?
+                            <div className="message">
+                              {data.data.text}
 
+                            </div>
+                            :
+                            <img src={data.file} alt="file" />}
+                        </div>
                       </div>
-                       : 
-                       <img src={data.file} alt="file"/>}
-                      </div>
-                    </div>
-                  </li>
-                )}
+                    </li>
+                  )}
               </div>
             ))}
           </ol>
-          {/* check if a group has been selected */}
           {this.props.state.startChatStatus ? (
             <div className="InputWrapper">
               <form onSubmit={this.handleSubmit}>
@@ -194,19 +220,19 @@ export default class Chatbox extends Component {
                   placeholder="Type a message..."
                   onChange={this.handleChange}
                 />
-                <input 
-                type="file"
-                name="img_file"
-                onChange={this.handleFile}
+                <input
+                  type="file"
+                  name="img_file"
+                  onChange={this.handleFile}
                 />
               </form>
-                <button onClick={this.sendFile}> Submit</button>
+              <button onClick={this.sendFile}> Submit</button>
 
               <div className="emojis" />
             </div>
           ) : (
-            "Please, choose a group to start cheatting..."
-          )}
+              "Please, choose a group to start cheatting..."
+            )}
         </div>
       </React.Fragment>
     );
