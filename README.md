@@ -9,7 +9,7 @@ This tutorial shows how to build a group chat with file sharing functionality:
 
 ![Complete view](src/screenshots/completePreview.png "complete app")
 
-![Login view](src/screenshots/login.png "Login")
+![Login view](src/screenshots/login.PNG "Login")
 
 ### Technology
 
