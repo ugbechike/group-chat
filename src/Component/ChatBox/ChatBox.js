@@ -29,65 +29,42 @@ export default class Chatbox extends Component {
     if (this.updateUser !== this.props.state.group) {
       this.setState({ userRecieverId: this.props.state.group }, () => {
         this.updateMessage();
+        
+        this.getChat();
+        
         return { userRecieverId: this.props.state.group };
       });
     } else {
     }
+    this.scrollToBottom();
   }
+  
 
-
-  async componentDidMount() {
+  
+  componentDidMount() {
     this.getUser();
   }
-
+  
   updateMessage = () => {
     this.messagesRequest = new CometChat.MessagesRequestBuilder()
-      .setGUID(this.props.state.group)
-      .setLimit(this.limit)
-      .build();
-
-
+    .setGUID(this.props.state.group)
+    .setLimit(this.limit)
+    .build();
+    
+    
     this.messagesRequest.fetchPrevious().then(
       messages => {
-        console.log("incomming...", messages)
         this.setState({ groupMessage: [] }, () => {
           return { groupMessage: [] };
         });
         this.setState({ groupMessage: messages }, () => {
           return { groupMessage: messages };
         });
-        this.getChat();
-        this.scrollToBottom();
       },
       error => {
         return error
       }
-    );
-  }
-
-
-  getChat = async () => {
-    CometChat.addMessageListener(
-      this.LISTENER_KEY_MESSAGE,
-      await new CometChat.MessageListener({
-        onTextMessageReceived: textMessage => {
-          this.setState(
-            prevState => ({
-              groupMessage: [...prevState.groupMessage, textMessage]
-            }))
-        },
-        onMediaMessageReceived: mediaMessage => {
-
-          this.setState(
-            prevState => ({
-              groupMessage: [...prevState.groupMessage, mediaMessage]
-            }))
-          console.log("Media message received successfully", mediaMessage);
-          // Handle media message
-        },
-      })
-    )
-
+      );
   }
 
   send = () => {
@@ -108,8 +85,36 @@ export default class Chatbox extends Component {
         return error
       }
     );
+
+    }
+
+
+
+  getChat = () => {
+    CometChat.addMessageListener(
+      this.LISTENER_KEY_MESSAGE,
+       new CometChat.MessageListener({
+        onTextMessageReceived: textMessage => {
+          this.setState(
+            prevState => ({
+              groupMessage: [...prevState.groupMessage, textMessage]
+            }))
+        },
+        onMediaMessageReceived: mediaMessage => {
+
+          this.setState(
+            prevState => ({
+              groupMessage: [...prevState.groupMessage, mediaMessage]
+            }))
+          console.log("Media message received successfully", mediaMessage);
+          // Handle media message
+        },
+      })
+    )
+
   }
 
+  
 
 
   scrollToBottom = () => {
@@ -169,6 +174,7 @@ export default class Chatbox extends Component {
   }
 
   render() {
+    
     return (
       <React.Fragment>
         <div>
